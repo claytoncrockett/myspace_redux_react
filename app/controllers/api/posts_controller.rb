@@ -18,6 +18,7 @@ class Api::PostsController < ApplicationController
       render json: post
     else
       render json: post.errors, status: 422
+    end
   end
 
   def destroy
