@@ -3,8 +3,13 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getPosts} from '../reducers/posts'
 import {
-  Card
+  Card,
+  Header,
+  Button,
+  Divider,
+  Container
 }from 'semantic-ui-react'
+import PostForm from './PostForm'
 
 
 
@@ -22,6 +27,8 @@ class Posts extends React.Component{
     this.props.dispatch( getPosts() )
   }
 
+
+
 posts = () => {
   return this.props.posts.map( post => {
     // return <post key={post.id} {...post} />
@@ -36,14 +43,27 @@ posts = () => {
   })
 }
 
-render (){
-  return(
-    <Card.Group itemsPerRow={4}>
-       {this.posts()} 
-    </Card.Group>
+render () {
+  const {showForm} = this.state
+  return (
+    <Container>
+    <Header as="h1" textAlign="center">
+      Posts
+    </Header>
+    <Button color="green" onClick={this.toggleForm}>Add</Button>
+    <Divider />
+    {showForm ? 
+      <PostForm toggleForm={this.toggleForm} />
+      : null }
+      <Card.Group itemsPerRow={3}>
+        { this.posts() }
+      </Card.Group>
+   
+    </Container>
   )
 }
 
+  
 
 
 

@@ -1,10 +1,13 @@
 class Api::PostsController < ApplicationController
+
+  before_action :set_post, only: [:update, :destroy]
+
   def index
     render json: Post.all
   end
 
   def create
-    post = Post.new(post_params)
+    post = current_user.posts.create(post_params)
     if post.save
       render json: post
     else
